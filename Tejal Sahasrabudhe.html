@@ -1,0 +1,998 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Tejal Sahasrabudhe</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: a sticky-nav portfolio. A blueprint-grid hero pairs the stacked name with a live BPMN-style process diagram and the
+   requirement-to-model chain. Sections use a label rail, illustrated work cards, icon skill cards with cursor spotlights,
+   a dark contact band, and a large outlined wordmark to close. */
+:root {
+  --bg: #F3F5F8;
+  --surface: #FFFFFF;
+  --fg: #12202E;
+  --muted: #51627A;
+  --line: #D5DCE6;
+  --accent: #2150D6;
+  --accent-ink: #FFFFFF;
+  --accent-soft: #E4EBFC;
+  --signal: #B45F00;
+  --signal-soft: #FBEBD6;
+  --glow: rgba(33, 80, 214, 0.13);
+  --grid: rgba(18, 32, 46, 0.055);
+  --spot: rgba(33, 80, 214, 0.08);
+  --shadow: 0 14px 34px -16px rgba(18, 32, 46, 0.28);
+  --band-bg: #0F1B2B;
+  --band-fg: #EAF0F8;
+  --band-muted: #9FB0C6;
+  --band-line: rgba(255, 255, 255, 0.14);
+  --band-card: rgba(255, 255, 255, 0.05);
+  --band-accent: #9DB9FF;
+  --spot-band: rgba(157, 185, 255, 0.14);
+  --font-display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0D1520;
+    --surface: #142030;
+    --fg: #E7EDF5;
+    --muted: #9BACC1;
+    --line: #26364B;
+    --accent: #86A8FF;
+    --accent-ink: #0A1230;
+    --accent-soft: #1B2A4A;
+    --signal: #F2A93B;
+    --signal-soft: #3A2A10;
+    --glow: rgba(134, 168, 255, 0.16);
+    --grid: rgba(231, 237, 245, 0.05);
+    --spot: rgba(134, 168, 255, 0.11);
+    --shadow: 0 14px 34px -14px rgba(0, 0, 0, 0.6);
+    --band-bg: #162538;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0D1520;
+  --surface: #142030;
+  --fg: #E7EDF5;
+  --muted: #9BACC1;
+  --line: #26364B;
+  --accent: #86A8FF;
+  --accent-ink: #0A1230;
+  --accent-soft: #1B2A4A;
+  --signal: #F2A93B;
+  --signal-soft: #3A2A10;
+  --glow: rgba(134, 168, 255, 0.16);
+  --grid: rgba(231, 237, 245, 0.05);
+  --spot: rgba(134, 168, 255, 0.11);
+  --shadow: 0 14px 34px -14px rgba(0, 0, 0, 0.6);
+  --band-bg: #162538;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--bg); }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+h1, h2, h3, h4 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+p { margin: 0; }
+ul { margin: 0; padding: 0; }
+section[id] { scroll-margin-top: 4.5rem; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.wrap {
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.mono { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+/* cursor spotlight, shared by cards */
+.spot { position: relative; }
+.spot::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(300px circle at var(--x, 50%) var(--y, 50%), var(--spot), transparent 65%); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+.spot:hover::after { opacity: 1; }
+
+/* header */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 40;
+  background: var(--bg);
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  -webkit-backdrop-filter: saturate(1.4) blur(12px); backdrop-filter: saturate(1.4) blur(12px);
+  border-bottom: 1px solid transparent; transition: border-color 0.25s;
+}
+.top.scrolled { border-bottom-color: var(--line); }
+.top .wrap { display: flex; align-items: center; gap: 0.5rem 1.5rem; padding-block: 0.7rem; }
+.brand { display: inline-flex; align-items: center; gap: 0.65rem; text-decoration: none; color: var(--fg); font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; flex-shrink: 0; }
+.brand .mk { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 5px; background: var(--accent); color: var(--accent-ink); font-family: var(--font-mono); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.02em; }
+.nav { display: flex; gap: 0.25rem 0.35rem; list-style: none; margin-left: auto; }
+.nav a { display: block; padding: 0.35rem 0.7rem; border-radius: 4px; font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); text-decoration: none; white-space: nowrap; transition: color 0.2s, background 0.2s; }
+.nav a:hover { color: var(--fg); background: var(--accent-soft); }
+.nav a[aria-current="true"] { color: var(--accent); background: var(--accent-soft); }
+.theme { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; flex-shrink: 0; transition: border-color 0.2s, transform 0.3s; }
+.theme:hover { border-color: var(--accent); transform: rotate(25deg); }
+.progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--accent); transform-origin: 0 50%; transform: scaleX(var(--prog, 0)); }
+
+/* hero */
+.stage { position: relative; overflow: hidden; }
+.stage::before {
+  content: ""; position: absolute; inset: 0;
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(ellipse 85% 95% at 72% 18%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(ellipse 85% 95% at 72% 18%, #000 0%, transparent 72%);
+  animation: drift 7s linear infinite;
+}
+.glow { position: absolute; width: 560px; height: 560px; border-radius: 50%; left: var(--mx, 72%); top: var(--my, 28%); transform: translate(-50%, -50%); background: radial-gradient(circle, var(--glow) 0%, transparent 65%); pointer-events: none; transition: left 0.5s ease-out, top 0.5s ease-out; }
+.flow { position: absolute; right: -70px; top: 36px; width: min(800px, 74vw); pointer-events: none; -webkit-mask-image: linear-gradient(90deg, transparent, #000 38%); mask-image: linear-gradient(90deg, transparent, #000 38%); }
+.flow svg { display: block; width: 100%; height: auto; }
+.flow .n { fill: var(--surface); stroke: var(--accent); stroke-width: 1.4; opacity: 0.75; }
+.flow .n.end { stroke-width: 3.2; }
+.flow .x { fill: none; stroke: var(--accent); stroke-width: 1.4; opacity: 0.75; }
+.flow .l { fill: none; stroke: var(--accent); stroke-width: 1.4; opacity: 0.5; stroke-dasharray: 5 6; animation: dash 1.6s linear infinite; }
+.flow text { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; fill: var(--accent); opacity: 0.85; }
+.flow .tok { fill: var(--signal); }
+.hero { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: 3rem; align-items: center; padding-block: 3.5rem 4.5rem; }
+.now { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.35rem 0.85rem 0.35rem 0.7rem; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted); margin-bottom: 1.6rem; }
+.now .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--signal); box-shadow: 0 0 0 0 var(--signal); animation: pulse 2s ease-out infinite; }
+.hero h1 { font-size: clamp(2.7rem, 8vw, 5.2rem); font-weight: 800; line-height: 1; letter-spacing: -0.03em; overflow-wrap: anywhere; }
+.ln { display: block; overflow: hidden; padding-bottom: 0.14em; margin-bottom: -0.14em; }
+.ln > span { display: inline-block; animation: up 0.9s cubic-bezier(0.2, 0.75, 0.2, 1) both; }
+.ln:nth-child(2) > span { animation-delay: 0.12s; }
+.ln:nth-child(2) > span::after { content: ""; display: inline-block; width: 0.13em; height: 0.13em; margin-left: 0.07em; background: var(--signal); }
+.swapline { margin-top: 1.4rem; font-family: var(--font-display); font-size: clamp(1.25rem, 3vw, 1.65rem); font-weight: 500; color: var(--muted); }
+.swap { display: inline-block; color: var(--accent); font-weight: 700; transition: opacity 0.3s, transform 0.3s; }
+.swap.out { opacity: 0; transform: translateY(-0.35em); }
+.lede { font-size: 1.15rem; line-height: 1.6; max-width: 33em; margin-top: 1.25rem; }
+.cta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+.btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.2rem; border-radius: 5px; border: 1px solid var(--accent); font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: background 0.2s, color 0.2s, transform 0.2s; }
+.btn:hover { transform: translateY(-2px); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); }
+.btn.ghost { color: var(--accent); background: transparent; }
+.btn.ghost:hover { background: var(--accent-soft); }
+.fx { animation: fade 0.8s ease both; animation-delay: var(--d, 0s); }
+
+.trace { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.6rem 1.6rem 1.4rem; box-shadow: var(--shadow); }
+.trace h2 { font-family: var(--font-mono); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.35rem; }
+.chain { list-style: none; position: relative; display: grid; gap: 1.1rem; padding-left: 1.7rem; }
+.chain::before { content: ""; position: absolute; left: 5px; top: 0.6rem; bottom: 0.6rem; width: 2px; background: var(--line); }
+.chain li { position: relative; }
+.chain li::before { content: ""; position: absolute; left: -1.7rem; top: 0.38rem; z-index: 2; width: 12px; height: 12px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); transition: background 0.4s, box-shadow 0.4s; }
+.chain li:not(:last-child)::after { content: ""; position: absolute; left: calc(-1.7rem + 5px); top: calc(0.38rem + 6px); width: 2px; height: calc(100% + 1.1rem); background: var(--accent); transform: scaleY(0); transform-origin: top; transition: transform 0.6s ease; z-index: 1; }
+.chain li.lit::before { background: var(--accent); box-shadow: 0 0 0 5px var(--accent-soft); }
+.chain li:last-child.lit::before { background: var(--signal); border-color: var(--signal); box-shadow: 0 0 0 5px var(--signal-soft); }
+.chain li.link::after { transform: scaleY(1); }
+.chain .code { font-family: var(--font-mono); font-size: 0.8rem; font-weight: 500; color: var(--accent); letter-spacing: 0.04em; }
+.chain .desc { display: block; font-size: 0.93rem; }
+.trace .note { margin-top: 1.4rem; padding-top: 1rem; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--muted); }
+
+/* stats and marquee */
+.stats dl { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.stat { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 0.15rem; padding: 1.6rem 1.25rem; border-left: 1px solid var(--line); }
+.stat:first-child { border-left: 0; padding-left: 0; }
+.stat dt { color: var(--muted); font-size: 0.9rem; }
+.stat dd { margin: 0; font-family: var(--font-display); font-size: clamp(2.4rem, 5vw, 3.4rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.stat dd::after { content: ""; display: block; width: 26px; height: 3px; margin-top: 0.55rem; background: var(--signal); }
+.marquee { overflow: hidden; border-bottom: 1px solid var(--line); -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.track { display: flex; width: max-content; animation: scroll 56s linear infinite; }
+.marquee:hover .track { animation-play-state: paused; }
+.track ul { display: flex; list-style: none; flex-shrink: 0; }
+.track li { padding: 1rem 1.2rem; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+.track li::after { content: "/"; margin-left: 2.4rem; color: var(--accent); }
+
+/* sections */
+.section { border-top: 1px solid var(--line); }
+.section > .wrap { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 1.5rem 2.5rem; padding-block: 4rem; }
+.section h2.label { font-family: var(--font-mono); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding-top: 0.45rem; }
+.section h2.label::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 0.6rem; background: var(--accent); vertical-align: 0.04em; }
+.content { min-width: 0; }
+.content > h3.lead { font-size: clamp(1.6rem, 3.4vw, 2.3rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.015em; max-width: 22em; margin-bottom: 1.4rem; }
+.prose p { max-width: 38em; }
+.prose p + p { margin-top: 1rem; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.1rem; margin: 2.25rem 0 0; }
+.facts > div { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.2rem 1.25rem; transition: border-color 0.2s, transform 0.2s; }
+.facts > div:hover { border-color: var(--accent); transform: translateY(-3px); }
+.facts dt { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.35rem; }
+.facts dd { margin: 0; font-size: 0.97rem; }
+
+/* experience */
+.roles { position: relative; display: grid; gap: 1.75rem; padding-left: 2rem; }
+.roles::before { content: ""; position: absolute; left: 5px; top: 0.5rem; bottom: 0.5rem; width: 2px; background: var(--line); }
+.roles::after { content: ""; position: absolute; left: 5px; top: 0.5rem; width: 2px; height: var(--p, 0%); max-height: calc(100% - 1rem); background: var(--accent); }
+.role { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.5rem 1.6rem; transition: box-shadow 0.25s, border-color 0.25s; }
+.role:hover { box-shadow: var(--shadow); border-color: var(--accent); }
+.role::before { content: ""; position: absolute; left: -2rem; top: 1.75rem; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); transition: background 0.4s, box-shadow 0.4s; }
+.role.reached::before { background: var(--accent); box-shadow: 0 0 0 5px var(--accent-soft); }
+.role-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.25rem 1.5rem; margin-bottom: 0.9rem; }
+.role-head h3 { font-size: 1.4rem; font-weight: 700; }
+.org-line { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.35rem; }
+.ob { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500; }
+.org { color: var(--muted); font-size: 0.97rem; }
+.dates { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
+.bul { padding-left: 1.1rem; display: grid; gap: 0.5rem; max-width: 42em; }
+.bul li::marker { color: var(--accent); }
+.tag { display: inline-block; margin-top: 1rem; font-family: var(--font-mono); font-size: 0.75rem; padding: 0.25rem 0.6rem; border-radius: 3px; background: var(--signal-soft); color: var(--signal); }
+.live { display: inline-block; margin-left: 0.6rem; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.1rem 0.5rem; border-radius: 3px; background: var(--accent-soft); color: var(--accent); vertical-align: middle; }
+
+/* selected work */
+.filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+.filter { display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.5rem 0.95rem; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); font: 500 0.88rem var(--font-body); cursor: pointer; transition: background 0.2s, color 0.2s, border-color 0.2s; }
+.filter span { font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); }
+.filter:hover { border-color: var(--accent); }
+.filter[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.filter[aria-pressed="true"] span { color: var(--accent-ink); opacity: 0.8; }
+.work-list { display: grid; gap: 1.1rem; }
+.work-list.swap-in { animation: fade 0.4s ease both; }
+.work { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 1rem 2rem; padding: 1.6rem; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s; }
+.work:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--accent); }
+.art { height: 112px; margin-bottom: 0.95rem; border-radius: 8px; background: var(--accent-soft); overflow: hidden; }
+.art svg { display: block; width: 100%; height: 100%; }
+.art .a { fill: none; stroke: var(--accent); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.art .af { fill: var(--surface); stroke: var(--accent); stroke-width: 1.6; stroke-linejoin: round; }
+.art .end { stroke-width: 3; }
+.art .ac { fill: var(--accent); stroke: none; }
+.art .sf { fill: var(--signal); stroke: none; }
+.art .sl { fill: none; stroke: var(--signal); stroke-width: 1.6; stroke-dasharray: 3 3; }
+.art .tr { fill: var(--line); stroke: none; }
+.art .t { font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.05em; fill: var(--accent); }
+.art .ti { font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.04em; fill: var(--accent-ink); }
+.work-meta h3 { font-size: 1.2rem; font-weight: 700; }
+.work-meta p { color: var(--muted); font-size: 0.9rem; margin-top: 0.15rem; }
+.work-title { font-weight: 600; font-size: 1.08rem; margin-bottom: 0.4rem; }
+.work-body p.text { max-width: 40em; }
+.chips { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+.chip { font-family: var(--font-mono); font-size: 0.74rem; padding: 0.2rem 0.55rem; border: 1px solid var(--line); border-radius: 3px; background: var(--bg); color: var(--fg); transition: border-color 0.2s, color 0.2s; }
+.chip:hover { border-color: var(--accent); color: var(--accent); }
+.chip.std { background: var(--accent-soft); border-color: transparent; color: var(--accent); }
+
+/* skills */
+.skill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.1rem; }
+.skill { overflow: hidden; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.6rem 1.4rem 1.4rem; transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s; }
+.skill::before { content: ""; position: absolute; left: 0; top: 0; height: 3px; width: 2.5rem; background: var(--accent); transition: width 0.4s ease; }
+.skill:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
+.skill:hover::before { width: 100%; }
+.ico { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 9px; background: var(--accent-soft); color: var(--accent); margin-bottom: 1rem; transition: background 0.25s, color 0.25s; }
+.skill:hover .ico { background: var(--accent); color: var(--accent-ink); }
+.ico svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.skill h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.85rem; }
+.skill .chips { margin-top: 0; }
+
+/* credentials */
+.cred-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.25rem; align-items: start; }
+.cred { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.6rem; }
+.cred h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 1.1rem; }
+.cert-group + .cert-group { margin-top: 1.3rem; }
+.cert-group h4 { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+.cert-group ul { list-style: none; display: grid; gap: 0.3rem; }
+.cert-group li { padding-left: 1.3rem; position: relative; }
+.cert-group li::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 9px; height: 9px; border-radius: 50%; border: 2px solid var(--accent); }
+.cert-group li.new::after { content: "New"; margin-left: 0.5rem; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.05rem 0.4rem; border-radius: 3px; background: var(--signal-soft); color: var(--signal); }
+.edu { padding-block: 1rem; border-top: 1px solid var(--line); }
+.edu:first-of-type { border-top: 0; padding-top: 0; }
+.edu .deg { font-weight: 600; }
+.edu .meta { color: var(--muted); font-size: 0.93rem; }
+.recognition { margin-top: 1.5rem; padding: 1.1rem 1.25rem; background: var(--signal-soft); border-radius: 8px; }
+.recognition .mono { color: var(--signal); display: block; margin-bottom: 0.3rem; }
+.recognition p { font-size: 0.95rem; }
+
+/* contact band */
+.band { background: var(--band-bg); color: var(--band-fg); border-top: 0; }
+.band h2.label { color: var(--band-muted); }
+.band h2.label::before { background: var(--band-accent); }
+.band .lead { color: var(--band-fg); }
+.contact-cards { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; margin-top: 2rem; }
+.ccard { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; padding: 1.25rem; border: 1px solid var(--band-line); background: var(--band-card); border-radius: 10px; min-width: 0; transition: border-color 0.2s, transform 0.2s; }
+.ccard::after { background: radial-gradient(300px circle at var(--x, 50%) var(--y, 50%), var(--spot-band), transparent 65%); }
+.ccard:hover { border-color: var(--band-accent); transform: translateY(-3px); }
+.ccard .mono { color: var(--band-muted); }
+.ccard .val { font-size: 1.02rem; overflow-wrap: anywhere; user-select: all; color: var(--band-fg); }
+.copy { margin-top: auto; font-family: var(--font-mono); font-size: 0.75rem; padding: 0.4rem 0.85rem; border-radius: 4px; border: 1px solid var(--band-line); background: transparent; color: var(--band-fg); cursor: pointer; text-decoration: none; transition: border-color 0.2s, color 0.2s; }
+.copy:hover { border-color: var(--band-accent); color: var(--band-accent); }
+.band a:focus-visible, .band button:focus-visible { outline-color: var(--band-accent); }
+
+footer { background: var(--band-bg); color: var(--band-muted); }
+footer .wrap { padding-block: 1rem 2.25rem; }
+.mega { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.7rem, 8.2vw, 6.2rem); line-height: 1; letter-spacing: -0.03em; white-space: nowrap; overflow: hidden; color: transparent; -webkit-text-stroke: 1.5px var(--band-line); transition: -webkit-text-stroke-color 0.4s; padding-bottom: 0.08em; }
+.mega:hover { -webkit-text-stroke-color: var(--band-accent); }
+.foot-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 2rem; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--band-line); font-size: 0.85rem; }
+
+/* motion */
+@keyframes up { from { transform: translateY(105%); } to { transform: none; } }
+@keyframes fade { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes drift { to { background-position: 44px 44px; } }
+@keyframes scroll { to { transform: translateX(-50%); } }
+@keyframes dash { to { stroke-dashoffset: -22; } }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--signal) 55%, transparent); } 70%, 100% { box-shadow: 0 0 0 9px transparent; } }
+@keyframes rise { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: none; } }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal { animation: rise linear backwards; animation-timeline: view(); animation-range: entry 0% entry 30%; }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .marquee { overflow-x: auto; }
+}
+
+@media (max-width: 860px) {
+  .hero { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; padding-block: 2.25rem 3rem; }
+  .flow { display: none; }
+  .section > .wrap { grid-template-columns: minmax(0, 1fr); gap: 1rem; padding-block: 3rem; }
+  .work { grid-template-columns: minmax(0, 1fr); }
+  .art { max-width: 340px; }
+  .top .wrap { flex-wrap: wrap; }
+  .brand { margin-right: auto; }
+  .theme { order: 2; }
+  .nav { order: 3; flex-basis: 100%; margin-left: 0; overflow-x: auto; scrollbar-width: none; padding-bottom: 0.2rem; }
+  .nav::-webkit-scrollbar { display: none; }
+  section[id] { scroll-margin-top: 7rem; }
+}
+@media (max-width: 640px) {
+  .stats dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stat:nth-child(odd) { border-left: 0; padding-left: 0; }
+  .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .dates { white-space: normal; }
+  .roles { padding-left: 1.6rem; }
+  .role { padding: 1.25rem; }
+  .role::before { left: -1.6rem; }
+}
+</style>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="#hero" aria-label="Tejal Sahasrabudhe, back to top"><span class="mk">TS</span><span>Tejal Sahasrabudhe</span></a>
+    <ul class="nav" id="nav">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#credentials">Credentials</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button type="button" class="theme" id="theme" aria-label="Switch light and dark theme">
+      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 1.8a6.2 6.2 0 0 1 0 12.4z" fill="currentColor"/></svg>
+    </button>
+  </div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+</header>
+
+<main>
+  <div class="stage" id="hero">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="flow" aria-hidden="true">
+      <svg viewBox="0 0 680 300" focusable="false">
+        <path class="l" d="M74 110H130"/>
+        <path class="l" d="M240 110H300"/>
+        <path class="l" d="M344 110H380"/>
+        <path class="l" d="M490 110H530"/>
+        <path class="l" d="M574 110H626"/>
+        <path class="l" d="M322 132V216H380"/>
+        <path class="l" d="M490 216H552V132"/>
+        <circle class="n" cx="60" cy="110" r="14"/>
+        <rect class="n" x="130" y="84" width="110" height="52" rx="8"/>
+        <path class="n" d="M322 88L344 110L322 132L300 110Z"/>
+        <path class="x" d="M315 103L329 117M329 103L315 117"/>
+        <rect class="n" x="380" y="84" width="110" height="52" rx="8"/>
+        <path class="n" d="M552 88L574 110L552 132L530 110Z"/>
+        <circle class="n end" cx="640" cy="110" r="14"/>
+        <rect class="n" x="380" y="190" width="110" height="52" rx="8"/>
+        <text x="60" y="144" text-anchor="middle">REQ</text>
+        <text x="185" y="114" text-anchor="middle">SDD</text>
+        <text x="435" y="114" text-anchor="middle">HLD</text>
+        <text x="435" y="220" text-anchor="middle">CATALOG MODEL</text>
+        <text x="640" y="144" text-anchor="middle">UAT</text>
+        <circle class="tok" r="5"><animateMotion dur="7s" repeatCount="indefinite" path="M74 110H626"/></circle>
+        <circle class="tok" r="5"><animateMotion dur="9s" begin="1.5s" repeatCount="indefinite" path="M74 110H322V216H552V110H626"/></circle>
+      </svg>
+    </div>
+    <section class="hero wrap" aria-label="Introduction">
+      <div>
+        <p class="now fx"><span class="dot" aria-hidden="true"></span>Currently at Compatio AI · SmartStudio GMS</p>
+        <h1><span class="ln"><span>Tejal</span></span><span class="ln"><span>Sahasrabudhe</span></span></h1>
+        <p class="sr">Business Analyst, Catalog Architect and Certified Scrum Product Owner.</p>
+        <p class="swapline fx" style="--d:.35s" aria-hidden="true">I work as a <span class="swap" id="swap">Business Analyst</span></p>
+        <p class="lede fx" style="--d:.5s">I translate complex client requirements into product solutions that can be built, tested and traced, from solution design to catalog model.</p>
+        <div class="cta fx" style="--d:.65s">
+          <a class="btn primary" href="#experience">See my experience</a>
+          <a class="btn ghost" href="https://www.linkedin.com/in/tejal-anand-sahasrabudhe-90a755234" target="_blank" rel="noopener">LinkedIn profile</a>
+        </div>
+      </div>
+
+      <aside class="trace fx" style="--d:.45s" aria-label="How my work is traced from requirement to model">
+        <h2>From requirement to model</h2>
+        <ol class="chain" id="chain">
+          <li><span class="code">REQUIREMENTS</span><span class="desc">Gathered with customers and stakeholders</span></li>
+          <li><span class="code">SDD</span><span class="desc">Client solution design, analysed in detail</span></li>
+          <li><span class="code">HLD</span><span class="desc">High-level design for the Hansen part of the solution</span></li>
+          <li><span class="code">CATALOG MODEL</span><span class="desc">Logical and physical structures, configured</span></li>
+          <li><span class="code">TEST &amp; UAT</span><span class="desc">System testing, user acceptance and training</span></li>
+        </ol>
+        <p class="note">Each step points back to the one before it, so any model element traces to a business requirement.</p>
+      </aside>
+    </section>
+  </div>
+
+  <section class="stats wrap" aria-label="At a glance">
+    <dl>
+      <div class="stat"><dt>Certifications</dt><dd data-count="13">13</dd></div>
+      <div class="stat"><dt>Client engagements</dt><dd data-count="5">5</dd></div>
+      <div class="stat"><dt>Product lines modelled</dt><dd data-count="4">4</dd></div>
+      <div class="stat"><dt>Salute Success awards</dt><dd data-count="3">3</dd></div>
+    </dl>
+  </section>
+
+  <div class="marquee" aria-label="Domain keywords">
+    <div class="track">
+      <ul>
+        <li>Product catalog</li><li>Catalog services APIs</li><li>CPQ</li><li>Order management</li><li>TMF 666</li><li>TMF 676</li><li>TMF 632</li><li>eTOM</li><li>SID</li><li>OSS/BSS</li><li>HLD</li><li>UML</li><li>BPMN</li><li>User stories</li><li>UAT</li><li>Agile</li><li>Scrum</li>
+      </ul>
+      <ul aria-hidden="true">
+        <li>Product catalog</li><li>Catalog services APIs</li><li>CPQ</li><li>Order management</li><li>TMF 666</li><li>TMF 676</li><li>TMF 632</li><li>eTOM</li><li>SID</li><li>OSS/BSS</li><li>HLD</li><li>UML</li><li>BPMN</li><li>User stories</li><li>UAT</li><li>Agile</li><li>Scrum</li>
+      </ul>
+    </div>
+  </div>
+
+  <section class="section" id="about">
+    <div class="wrap">
+      <h2 class="label">About</h2>
+      <div class="content">
+        <h3 class="lead reveal">I work where business needs meet system design.</h3>
+        <div class="prose reveal">
+          <p>My days go into gathering requirements, reading solution design documents and turning them into high-level designs, flow diagrams and catalog models that architects, developers and testers can all build from.</p>
+          <p>Most of my recent work is in the communications domain: product catalog, quoting and order management for mobile, broadband, OTT and TV. Before that I ran e-learning and website projects, so I am just as comfortable leading client workshops, negotiating scope and keeping a delivery on plan.</p>
+        </div>
+        <dl class="facts reveal">
+          <div class="spot"><dt>Domain</dt><dd>Communications: quoting, catalog, order management</dd></div>
+          <div class="spot"><dt>Frameworks</dt><dd>eTOM, SID, TMF Open APIs, OSS/BSS</dd></div>
+          <div class="spot"><dt>Methods</dt><dd>Agile and Waterfall, Scrum product ownership</dd></div>
+          <div class="spot"><dt>Focus</dt><dd>AI-first product management</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="experience">
+    <div class="wrap">
+      <h2 class="label">Experience</h2>
+      <div class="content roles" id="roles">
+        <article class="role spot reveal">
+          <div class="role-head">
+            <div>
+              <h3>Business Analyst<span class="live">Current</span></h3>
+              <div class="org-line"><span class="ob" aria-hidden="true">C</span><p class="org">Compatio AI</p></div>
+            </div>
+            <p class="dates">June 2026 – Present</p>
+          </div>
+          <ul class="bul">
+            <li>Solution Modeler and Catalog Architect on the SmartStudio GMS platform, building end-to-end product and service models for the e-commerce domain.</li>
+            <li>Defined logical and physical catalog models so product, pricing and service design stay consistent.</li>
+            <li>Wrote functional specifications and HLDs, and governed the documentation so every requirement traces through design to its model.</li>
+          </ul>
+        </article>
+
+        <article class="role spot reveal">
+          <div class="role-head">
+            <div>
+              <h3>Business Analyst</h3>
+              <div class="org-line"><span class="ob" aria-hidden="true">H</span><p class="org">Hansen Technologies, Pune</p></div>
+            </div>
+            <p class="dates">Oct 2023 – June 2026</p>
+          </div>
+          <ul class="bul">
+            <li>Catalog architect and design resource on the Innovation Labs and Virgin Media engagements.</li>
+            <li>Turned client SDDs into HLDs, aligned the solution with the architecture team and handed design and development tasks to developers.</li>
+            <li>Ran requirement sessions and client workshops, and supported system testing, UAT and training.</li>
+          </ul>
+          <span class="tag">3 Salute Success recognitions</span>
+        </article>
+
+        <article class="role spot reveal">
+          <div class="role-head">
+            <div>
+              <h3>Associate Project Manager</h3>
+              <div class="org-line"><span class="ob" aria-hidden="true">A</span><p class="org">Aptlogica Technologies Private Limited</p></div>
+            </div>
+            <p class="dates">Nov 2022 – Aug 2023</p>
+          </div>
+          <ul class="bul">
+            <li>Planned and delivered e-learning and website projects for Cisco Academy and Hyspec Castrol, managing several at once.</li>
+            <li>Led daily scrums and weekly client workshops, with status reporting in JIRA and Confluence.</li>
+            <li>Wrote user stories from business requirements and held negotiation workshops on feature delivery.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="work">
+    <div class="wrap">
+      <h2 class="label">Selected work</h2>
+      <div class="content">
+        <div class="filters" role="group" aria-label="Filter selected work">
+          <button type="button" class="filter" data-filter="all" aria-pressed="true">All work <span>5</span></button>
+          <button type="button" class="filter" data-filter="catalog" aria-pressed="false">Catalog architecture <span>3</span></button>
+          <button type="button" class="filter" data-filter="delivery" aria-pressed="false">Project delivery <span>2</span></button>
+        </div>
+
+        <div class="work-list" id="work-list">
+          <article class="work spot reveal" data-cat="catalog">
+            <div class="work-meta">
+              <div class="art" aria-hidden="true">
+                <svg viewBox="0 0 220 112" focusable="false">
+                  <rect class="af" x="28" y="62" width="128" height="30" rx="5"/><text class="t" x="38" y="86">SERVICE</text>
+                  <rect class="af" x="46" y="42" width="128" height="30" rx="5"/><text class="t" x="56" y="66">PRICING</text>
+                  <rect class="af" x="64" y="22" width="128" height="30" rx="5"/><text class="t" x="74" y="42">PRODUCT</text>
+                  <circle class="sf" cx="180" cy="37" r="4"/>
+                </svg>
+              </div>
+              <h3>SmartStudio GMS</h3>
+              <p>Compatio AI</p>
+            </div>
+            <div class="work-body">
+              <p class="work-title">E-commerce product and service modelling</p>
+              <p class="text">Designed and configured end-to-end product and service models as Solution Modeler and Catalog Architect, and defined the logical and physical catalog structures that keep product, pricing and service design aligned.</p>
+              <ul class="chips">
+                <li class="chip">Catalog model</li><li class="chip">HLD</li><li class="chip">Functional spec</li><li class="chip">Traceability</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="work spot reveal" data-cat="catalog">
+            <div class="work-meta">
+              <div class="art" aria-hidden="true">
+                <svg viewBox="0 0 220 112" focusable="false">
+                  <path class="a" d="M68 24L92 44M145 24L128 44M62 90L92 68M162 90L128 68"/>
+                  <rect class="af" x="16" y="14" width="52" height="20" rx="4"/><text class="t" x="42" y="27" text-anchor="middle">MOBILE</text>
+                  <rect class="af" x="145" y="14" width="66" height="20" rx="4"/><text class="t" x="178" y="27" text-anchor="middle">BROADBAND</text>
+                  <rect class="af" x="22" y="80" width="40" height="20" rx="4"/><text class="t" x="42" y="93" text-anchor="middle">OTT</text>
+                  <rect class="af" x="162" y="80" width="32" height="20" rx="4"/><text class="t" x="178" y="93" text-anchor="middle">TV</text>
+                  <circle class="ac" cx="110" cy="56" r="21"/><text class="ti" x="110" y="59" text-anchor="middle">CATALOG</text>
+                </svg>
+              </div>
+              <h3>Innovation Labs</h3>
+              <p>Hansen Technologies</p>
+            </div>
+            <div class="work-body">
+              <p class="work-title">Catalog architecture for communications products</p>
+              <p class="text">Modelled Mobile, Broadband, OTT and TV products, covering basic plans, discounts, services and migration. Added opportunity and opportunity pricing to Hansen Catalog, and defined structures for data-driven and rate-driven products with the CPQ and Order Management teams. Presented catalog features in client workshops and worked on catalog and catalog services APIs.</p>
+              <ul class="chips">
+                <li class="chip std">TMF 666</li><li class="chip std">TMF 676</li><li class="chip std">TMF 632</li>
+                <li class="chip">Catalog services APIs</li><li class="chip">CPQ</li><li class="chip">Order Management</li><li class="chip">System flow diagrams</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="work spot reveal" data-cat="catalog">
+            <div class="work-meta">
+              <div class="art" aria-hidden="true">
+                <svg viewBox="0 0 220 112" focusable="false">
+                  <path class="a" d="M23 52H30M84 52H92M116 52H128M182 52H196"/>
+                  <circle class="af" cx="16" cy="52" r="7"/>
+                  <rect class="af" x="30" y="38" width="54" height="28" rx="5"/><text class="t" x="57" y="55" text-anchor="middle">ORDER</text>
+                  <path class="af" d="M104 38L116 52L104 66L92 52Z"/>
+                  <rect class="af" x="128" y="38" width="54" height="28" rx="5"/><text class="t" x="155" y="55" text-anchor="middle">TRANSLATE</text>
+                  <circle class="af end" cx="203" cy="52" r="7"/>
+                  <path class="sl" d="M104 66V84"/>
+                  <rect class="af" x="88" y="84" width="32" height="16" rx="3" style="stroke:var(--signal)"/><text class="t" x="104" y="95" text-anchor="middle" style="fill:var(--signal)">GAP</text>
+                </svg>
+              </div>
+              <h3>Virgin Media</h3>
+              <p>Hansen Technologies</p>
+            </div>
+            <div class="work-body">
+              <p class="work-title">High-level design for Order Management and the Translation Layer</p>
+              <p class="text">Documented use cases and developed UML diagrams for the HLD, based on the BPMN flows. Found gaps in solution and architecture to improve performance and reduce defects.</p>
+              <ul class="chips">
+                <li class="chip">Use cases</li><li class="chip">UML</li><li class="chip">BPMN</li><li class="chip">HLD</li><li class="chip">Gap analysis</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="work spot reveal" data-cat="delivery">
+            <div class="work-meta">
+              <div class="art" aria-hidden="true">
+                <svg viewBox="0 0 220 112" focusable="false">
+                  <rect class="af" x="46" y="14" width="128" height="84" rx="7"/>
+                  <path class="a" d="M46 34H174"/>
+                  <circle class="ac" cx="58" cy="24" r="2.5"/><circle class="ac" cx="67" cy="24" r="2.5"/><circle class="ac" cx="76" cy="24" r="2.5"/>
+                  <path class="ac" d="M92 48L92 70L109 59Z"/>
+                  <path class="a" d="M124 54H160M124 64H150"/>
+                  <rect class="tr" x="60" y="80" width="100" height="6" rx="3"/><rect class="sf" x="60" y="80" width="62" height="6" rx="3"/>
+                </svg>
+              </div>
+              <h3>Cisco Academy</h3>
+              <p>Aptlogica Technologies</p>
+            </div>
+            <div class="work-body">
+              <p class="work-title">E-learning course delivery</p>
+              <p class="text">Prepared project plans for building e-learning courses in Adapt and allocated people by skill set. Ran daily scrums, wrote user stories from business requirements and reported weekly progress in JIRA and Confluence.</p>
+              <ul class="chips">
+                <li class="chip">Project plan</li><li class="chip">User stories</li><li class="chip">JIRA</li><li class="chip">Confluence</li><li class="chip">Adapt</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="work spot reveal" data-cat="delivery">
+            <div class="work-meta">
+              <div class="art" aria-hidden="true">
+                <svg viewBox="0 0 220 112" focusable="false">
+                  <rect class="af" x="36" y="12" width="148" height="88" rx="7"/>
+                  <path class="a" d="M36 30H184"/>
+                  <circle class="ac" cx="47" cy="21" r="2.5"/><circle class="ac" cx="56" cy="21" r="2.5"/><circle class="ac" cx="65" cy="21" r="2.5"/>
+                  <rect class="tr" x="48" y="40" width="124" height="22" rx="3"/>
+                  <rect class="tr" x="48" y="70" width="38" height="20" rx="3"/><rect class="tr" x="91" y="70" width="38" height="20" rx="3"/><rect class="tr" x="134" y="70" width="38" height="20" rx="3"/>
+                  <circle class="sf" cx="184" cy="16" r="9"/>
+                  <path d="M180 16l3 3 5-6" style="fill:none;stroke:var(--accent-ink);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"/>
+                </svg>
+              </div>
+              <h3>Hyspec Castrol</h3>
+              <p>Aptlogica Technologies</p>
+            </div>
+            <div class="work-body">
+              <p class="work-title">Website development for Castrol</p>
+              <p class="text">Prepared high-level system flows, held weekly workshops where the client reviewed and approved the website, and led negotiation workshops on feature delivery and enhancements.</p>
+              <ul class="chips">
+                <li class="chip">System flows</li><li class="chip">Client workshops</li><li class="chip">Scope negotiation</li><li class="chip">Status reporting</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="skills">
+    <div class="wrap">
+      <h2 class="label">Skills</h2>
+      <div class="content skill-grid">
+        <div class="skill spot reveal">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9z"/><path d="M8.5 13l2.2 2.2L15.5 10.5"/></svg></span>
+          <h3>Requirements and analysis</h3>
+          <ul class="chips">
+            <li class="chip">Requirements gathering</li><li class="chip">Elicitation</li><li class="chip">Requirements analysis</li><li class="chip">BRD</li><li class="chip">FRD</li><li class="chip">User stories</li><li class="chip">Use cases</li><li class="chip">Wireframing</li><li class="chip">UAT</li>
+          </ul>
+        </div>
+        <div class="skill spot reveal">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg></span>
+          <h3>Design and modelling</h3>
+          <ul class="chips">
+            <li class="chip">HLD</li><li class="chip">Solution design</li><li class="chip">Logical and physical catalog models</li><li class="chip">System flow diagrams</li><li class="chip">UML</li><li class="chip">BPMN</li><li class="chip">Technical writing</li>
+          </ul>
+        </div>
+        <div class="skill spot reveal">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M7.8 7.8a6 6 0 0 0 0 8.4M16.2 7.8a6 6 0 0 1 0 8.4M4.9 4.9a10 10 0 0 0 0 14.2M19.1 4.9a10 10 0 0 1 0 14.2"/></svg></span>
+          <h3>Telecom domain</h3>
+          <ul class="chips">
+            <li class="chip">Product catalog</li><li class="chip">Catalog services</li><li class="chip">CPQ</li><li class="chip">Order management</li><li class="chip">eTOM</li><li class="chip">SID</li><li class="chip">TMF Open APIs</li><li class="chip">OSS/BSS</li>
+          </ul>
+        </div>
+        <div class="skill spot reveal">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="10" y="4" width="5" height="10" rx="1"/><rect x="17" y="4" width="4" height="13" rx="1"/></svg></span>
+          <h3>Delivery and tools</h3>
+          <ul class="chips">
+            <li class="chip">Agile</li><li class="chip">Waterfall</li><li class="chip">Scrum</li><li class="chip">Project management</li><li class="chip">JIRA</li><li class="chip">Confluence</li><li class="chip">MS Visio</li><li class="chip">Draw.io</li><li class="chip">MS Excel</li>
+          </ul>
+        </div>
+        <div class="skill spot reveal">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span>
+          <h3>Data and technology</h3>
+          <ul class="chips">
+            <li class="chip">SQL and PL/SQL</li><li class="chip">RDBMS</li><li class="chip">Python</li><li class="chip">HTML</li><li class="chip">JavaScript</li><li class="chip">Data analysis</li><li class="chip">Data visualization</li><li class="chip">Data warehousing</li>
+          </ul>
+        </div>
+        <div class="skill spot reveal">
+          <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15.5 14.3c2.9-.4 5.5 1.7 5.5 4.7"/></svg></span>
+          <h3>Working style</h3>
+          <ul class="chips">
+            <li class="chip">Stakeholder management</li><li class="chip">Client consultation</li><li class="chip">Communication</li><li class="chip">Collaboration</li><li class="chip">Problem-solving</li><li class="chip">Critical thinking</li><li class="chip">Analytical skills</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="credentials">
+    <div class="wrap">
+      <h2 class="label">Credentials</h2>
+      <div class="content cred-grid">
+        <div class="cred spot reveal">
+          <h3>Certifications</h3>
+          <div class="cert-group">
+            <h4>Product and agile</h4>
+            <ul>
+              <li>Certified Scrum Product Owner®, Scrum Alliance</li>
+              <li class="new">AI-First Product Management</li>
+              <li>PMI Agile Certified Practitioner</li>
+            </ul>
+          </div>
+          <div class="cert-group">
+            <h4>Analysis and quality</h4>
+            <ul>
+              <li>Business Analysis: Foundations and Business Process Modelling</li>
+              <li>Lean Six Sigma Black Belt</li>
+              <li>Lean Six Sigma Green Belt</li>
+            </ul>
+          </div>
+          <div class="cert-group">
+            <h4>Cloud</h4>
+            <ul>
+              <li>Microsoft Azure Fundamentals</li>
+            </ul>
+          </div>
+          <div class="cert-group">
+            <h4>Telecom platforms and frameworks</h4>
+            <ul>
+              <li>Hansen Catalog Fundamentals</li>
+              <li>Hansen Catalog Configurations</li>
+              <li>Hansen CPQ Fundamentals</li>
+              <li>Hansen OM Fundamentals</li>
+              <li>Hansen OM Configurations</li>
+              <li>OSS/BSS Frameworks</li>
+            </ul>
+          </div>
+        </div>
+        <div class="cred spot reveal">
+          <h3>Education</h3>
+          <div class="edu">
+            <p class="deg">MBA, Information Technology</p>
+            <p class="meta">Symbiosis Institute of Computer Studies &amp; Research, Pune</p>
+            <p class="meta">2021 – 2023 · CGPA 7.7</p>
+          </div>
+          <div class="edu">
+            <p class="deg">Bachelor of Engineering, Computer</p>
+            <p class="meta">Sinhgad Academy of Engineering, Pune</p>
+            <p class="meta">2016 – 2020 · CGPA 7.15</p>
+          </div>
+          <div class="recognition">
+            <span class="mono">Recognition</span>
+            <p>Received 3 Hansen Salute Success Recognitions for contributions to client projects.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band" id="contact">
+    <div class="wrap">
+      <h2 class="label">Contact</h2>
+      <div class="content">
+        <h3 class="lead reveal">Let's talk about catalog design, business analysis or your next product.</h3>
+        <ul class="contact-cards">
+          <li class="ccard spot">
+            <span class="mono">Email</span>
+            <span class="val" id="val-email">tejalanand02@gmail.com</span>
+            <button type="button" class="copy" data-copy="tejalanand02@gmail.com" data-target="val-email">Copy</button>
+          </li>
+          <li class="ccard spot">
+            <span class="mono">Mobile</span>
+            <span class="val" id="val-phone">+91 9422796959</span>
+            <button type="button" class="copy" data-copy="+91 9422796959" data-target="val-phone">Copy</button>
+          </li>
+          <li class="ccard spot">
+            <span class="mono">LinkedIn</span>
+            <span class="val">tejal-anand-sahasrabudhe</span>
+            <a class="copy" href="https://www.linkedin.com/in/tejal-anand-sahasrabudhe-90a755234" target="_blank" rel="noopener">Open profile</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="mega" aria-hidden="true">Tejal Sahasrabudhe</p>
+    <div class="foot-row">
+      <span>Tejal Sahasrabudhe · Business Analyst</span>
+      <span>Pune, India</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* stop SVG token animation for reduced motion */
+  if (reduce) {
+    Array.prototype.slice.call(document.querySelectorAll('svg')).forEach(function (s) {
+      if (s.pauseAnimations) s.pauseAnimations();
+    });
+  }
+
+  /* theme toggle */
+  var themeBtn = document.getElementById('theme');
+  try { var saved = localStorage.getItem('portfolio-theme'); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
+  function isDark() {
+    var t = root.getAttribute('data-theme');
+    if (t) return t === 'dark';
+    return !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  }
+  themeBtn.addEventListener('click', function () {
+    var next = isDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('portfolio-theme', next); } catch (e) {}
+  });
+
+  /* scroll: header state, progress bar, experience rail */
+  var header = document.getElementById('top');
+  var progress = document.getElementById('progress');
+  var roles = document.getElementById('roles');
+  var roleEls = Array.prototype.slice.call(document.querySelectorAll('.role'));
+  var ticking = false;
+  function onScroll() {
+    ticking = false;
+    var y = window.scrollY || root.scrollTop || 0;
+    var max = root.scrollHeight - window.innerHeight;
+    progress.style.setProperty('--prog', max > 0 ? Math.min(1, y / max) : 0);
+    header.classList.toggle('scrolled', y > 8);
+    if (roles) {
+      var line = window.innerHeight * 0.62;
+      var r = roles.getBoundingClientRect();
+      var p = Math.min(1, Math.max(0, (line - r.top) / r.height));
+      roles.style.setProperty('--p', (p * 100) + '%');
+      roleEls.forEach(function (el) { el.classList.toggle('reached', el.getBoundingClientRect().top < line); });
+    }
+  }
+  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  /* active nav link */
+  var links = Array.prototype.slice.call(document.querySelectorAll('#nav a'));
+  if ('IntersectionObserver' in window) {
+    var secObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          links.forEach(function (a) {
+            if (a.getAttribute('href') === '#' + en.target.id) a.setAttribute('aria-current', 'true');
+            else a.removeAttribute('aria-current');
+          });
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    links.forEach(function (a) {
+      var s = document.querySelector(a.getAttribute('href'));
+      if (s) secObs.observe(s);
+    });
+  }
+
+  /* rotating role in the hero */
+  var swap = document.getElementById('swap');
+  var titles = ['Business Analyst', 'Catalog Architect', 'Solution Modeler', 'Certified Scrum Product Owner'];
+  var ti = 0;
+  if (swap && !reduce) {
+    setInterval(function () {
+      swap.classList.add('out');
+      setTimeout(function () {
+        ti = (ti + 1) % titles.length;
+        swap.textContent = titles[ti];
+        swap.classList.remove('out');
+      }, 320);
+    }, 2800);
+  }
+
+  /* requirement-to-model chain stepper */
+  var items = Array.prototype.slice.call(document.querySelectorAll('#chain li'));
+  var step = 0;
+  function render(n) {
+    items.forEach(function (li, i) {
+      li.classList.toggle('lit', i < n);
+      li.classList.toggle('link', i < n - 1);
+    });
+  }
+  function tick() {
+    render(step);
+    var wait = 900;
+    if (step === items.length) wait = 2600;
+    step = step >= items.length ? 0 : step + 1;
+    setTimeout(tick, wait);
+  }
+  if (items.length && !reduce) setTimeout(tick, 1100);
+
+  /* pointer glow on the hero */
+  var stage = document.querySelector('.stage');
+  if (stage && !reduce) {
+    stage.addEventListener('pointermove', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      var r = stage.getBoundingClientRect();
+      stage.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      stage.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  }
+
+  /* cursor spotlight on cards */
+  Array.prototype.slice.call(document.querySelectorAll('.spot')).forEach(function (el) {
+    el.addEventListener('pointermove', function (e) {
+      var r = el.getBoundingClientRect();
+      el.style.setProperty('--x', (e.clientX - r.left) + 'px');
+      el.style.setProperty('--y', (e.clientY - r.top) + 'px');
+    });
+  });
+
+  /* count-up numbers */
+  var counters = Array.prototype.slice.call(document.querySelectorAll('[data-count]'));
+  function runCount(el) {
+    var target = parseInt(el.getAttribute('data-count'), 10);
+    var start = null;
+    function frame(ts) {
+      if (start === null) start = ts;
+      var t = Math.min(1, (ts - start) / 1100);
+      var eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.round(target * eased);
+      if (t < 1) requestAnimationFrame(frame);
+      else el.textContent = target;
+    }
+    el.textContent = '0';
+    requestAnimationFrame(frame);
+  }
+  if (!reduce && 'IntersectionObserver' in window) {
+    var cObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { runCount(en.target); cObs.unobserve(en.target); }
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(function (el) { cObs.observe(el); });
+  }
+
+  /* selected work filter */
+  var filters = Array.prototype.slice.call(document.querySelectorAll('.filter'));
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.work'));
+  var list = document.getElementById('work-list');
+  filters.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var f = btn.getAttribute('data-filter');
+      filters.forEach(function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+      cards.forEach(function (c) { c.hidden = !(f === 'all' || c.getAttribute('data-cat') === f); });
+      list.classList.remove('swap-in');
+      void list.offsetWidth;
+      list.classList.add('swap-in');
+    });
+  });
+
+  /* copy buttons */
+  Array.prototype.slice.call(document.querySelectorAll('button.copy')).forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = btn.getAttribute('data-copy');
+      function reset(label) {
+        btn.textContent = label;
+        setTimeout(function () { btn.textContent = 'Copy'; }, 1800);
+      }
+      function fallback() {
+        var el = document.getElementById(btn.getAttribute('data-target'));
+        if (el) {
+          try {
+            var range = document.createRange();
+            range.selectNodeContents(el);
+            var sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+          } catch (e) {}
+        }
+        reset('Selected');
+      }
+      try {
+        navigator.clipboard.writeText(text).then(function () { reset('Copied'); }, fallback);
+      } catch (e) {
+        fallback();
+      }
+    });
+  });
+})();
+</script>
+
+</body></html>
